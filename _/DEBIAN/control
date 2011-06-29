@@ -1,0 +1,10 @@
+Package: am.theiostre.statusgoogle
+Name: StatusGoogle
+Depends: firmware (>= 5.0)
+Version: 0.0.1-7
+Architecture: iphoneos-arm
+Description: An awesome widget for the notification center!
+Maintainer: theiostream
+Author: theiostream
+Section: Widgets
+Installed-Size: 24
