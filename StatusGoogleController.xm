@@ -64,7 +64,7 @@
 	searchField.text = nil;
 	[[UIApplication sharedApplication] applicationOpenURL:url];
 	
-	return YES; //@Maximus: or return NO?
+	return YES;
 }
 
 - (float)viewHeight
