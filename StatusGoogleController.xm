@@ -59,7 +59,7 @@
 	
 	[searchField resignFirstResponder];
 	google = [searchField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-	googleSearch = [NSString stringWithFormat:@"http://google.com/?q=%@", google];
+	googleSearch = [NSString stringWithFormat:@"http://www.google.com/search?q=%@", google];
 	NSURL *url = [NSURL URLWithString:googleSearch];
 	searchField.text = nil;
 	[[UIApplication sharedApplication] applicationOpenURL:url];
