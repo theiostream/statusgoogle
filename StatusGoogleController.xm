@@ -4,6 +4,14 @@
 
 #define VIEW_HEIGHT 25.0f
 
+@interface UIApplication (theiostream)
+- (void)applicationOpenURL:(id)url;
+@end
+
+@interface UIDevice (theiostream)
+- (BOOL)isWildcat;
+@end
+
 @interface StatusGoogleController : NSObject <BBWeeAppController, UITextFieldDelegate>
 {
 	UIView *_view;
@@ -36,11 +44,12 @@
 	{
 	_view = [[UIView alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 316.0f, VIEW_HEIGHT)];
 
-		UIImage *bgImg = [[UIImage imageWithContentsOfFile:@"/System/Library/WeeAppPlugins/StocksWeeApp.bundle/WeeAppBackground.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:71];
-        UIImageView *bg = [[UIImageView alloc] initWithImage:bgImg];
-        bg.frame = CGRectMake(0.0f, 0.0f, 316.0f, VIEW_HEIGHT);
-        
-	searchField = [[UITextField alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 316.0f, VIEW_HEIGHT)];
+	UIImage *bgImg = [[UIImage imageWithContentsOfFile:@"/System/Library/WeeAppPlugins/StocksWeeApp.bundle/WeeAppBackground.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:71];
+    UIImageView *bg = [[UIImageView alloc] initWithImage:bgImg];
+    bg.frame = CGRectMake(0.0f, 0.0f, 316.0f, VIEW_HEIGHT);
+    
+    CGRect frame = [[UIDevice currentDevice] isWildcat] ? CGRectMake(26.0f, 0.0f, 436.0f, VIEW_HEIGHT) : CGRectMake(2.0f, 0.0f, 316.0f, VIEW_HEIGHT);
+	searchField = [[UITextField alloc] initWithFrame:frame];
 	searchField.placeholder = @"Search here!";
 	searchField.textColor = [UIColor whiteColor];
 	searchField.textAlignment = UITextAlignmentCenter;
@@ -48,7 +57,7 @@
 	
 	[_view addSubview:searchField];
 	[_view addSubview:bg];
-        [bg release];
+    [bg release];
 	[searchField release];
 	}
 
@@ -58,8 +67,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
 	[searchField resignFirstResponder];
-	google = [searchField.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-	googleSearch = [NSString stringWithFormat:@"http://www.google.com/search?q=%@", google];
+	google = [searchField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	googleSearch = [NSString stringWithFormat:@"http://www.google.com/search?q=%@&ie=utf-8&oe=utf-8", google];
 	NSURL *url = [NSURL URLWithString:googleSearch];
 	searchField.text = nil;
 	[[UIApplication sharedApplication] applicationOpenURL:url];
