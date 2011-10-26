@@ -2,7 +2,7 @@
 #import <UIKit/UIKit.h>
 #import "BBWeeAppController-Protocol.h"
 
-#define VIEW_HEIGHT 25.0f
+#define VIEW_HEIGHT 28.0f
 
 @interface UIApplication (theiostream)
 - (void)applicationOpenURL:(id)url;
@@ -44,11 +44,11 @@
 	{
 	_view = [[UIView alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 316.0f, VIEW_HEIGHT)];
 
-	UIImage *bgImg = [[UIImage imageWithContentsOfFile:@"/System/Library/WeeAppPlugins/StocksWeeApp.bundle/WeeAppBackground.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:71];
+	UIImage *bgImg = [[UIImage imageWithContentsOfFile:@"/System/Library/WeeAppPlugins/StatusGoogle.bundle/WeeAppBackground.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:71];
     UIImageView *bg = [[UIImageView alloc] initWithImage:bgImg];
-    bg.frame = CGRectMake(0.0f, 0.0f, 316.0f, VIEW_HEIGHT);
+    bg.frame = [[UIDevice currentDevice] isWildcat] ? CGRectMake(40.0f, 0.0f, 395.0f, VIEW_HEIGHT) : CGRectMake(4.0f, 0.0f, 316.0f, VIEW_HEIGHT); //450 = x on teh iPad
     
-    CGRect frame = [[UIDevice currentDevice] isWildcat] ? CGRectMake(26.0f, 0.0f, 436.0f, VIEW_HEIGHT) : CGRectMake(2.0f, 0.0f, 316.0f, VIEW_HEIGHT);
+    CGRect frame = [[UIDevice currentDevice] isWildcat] ? CGRectMake(45.0f, 0.0f, 390.0f, VIEW_HEIGHT) : CGRectMake(4.0f, 0.0f, 316.0f, VIEW_HEIGHT);
 	searchField = [[UITextField alloc] initWithFrame:frame];
 	searchField.placeholder = @"Search here!";
 	searchField.textColor = [UIColor whiteColor];
