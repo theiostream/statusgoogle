@@ -16,8 +16,6 @@
 {
 	UIView *_view;
 	UITextField *searchField;
-	NSString *google;
-	NSString *googleSearch;
 }
 
 @end
@@ -65,14 +63,20 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	
 	[searchField resignFirstResponder];
-	google = [searchField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	googleSearch = [NSString stringWithFormat:@"http://www.google.com/search?q=%@&ie=utf-8&oe=utf-8", google];
-	NSURL *url = [NSURL URLWithString:googleSearch];
+        // stolen from SpotURL by FilippoBiga!
+	NSString *str = [NSString stringWithFormat:@"http://www.google.com/search?q=%@&ie=utf-8&oe=utf-8", [searchField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSArray *keys = [[NSArray alloc] initWithObjects:@"http://",@"https://",@"www.",@".com",@".net",@".org",@".us",@".me",@".it",@".uk",@".de",nil];
+        for (NSString *k in keys) {
+        	if ([searchField.text rangeOfString:k].location != NSNotFound) {
+        		if ([searchField.text hasPrefix:@"http://"]) str = searchField.text;
+        		else str = [NSString stringWithFormat:@"http://%@", searchField.text];
+        	}
+	}
+	[[UIApplication sharedApplication] applicationOpenURL:[NSURL URLWithString:str]];
+	[keys release];
+	[str release];
 	searchField.text = nil;
-	[[UIApplication sharedApplication] applicationOpenURL:url];
-	
 	return YES;
 }
 
