@@ -2,14 +2,12 @@ THEOS_DEVICE_IP=192.168.1.105
 
 include theos/makefiles/common.mk
 
-TWEAK_NAME = StatusGoogle
-StatusGoogle_FILES = StatusGoogleController.xm
-StatusGoogle_INSTALL_PATH = /System/Library/WeeAppPlugins/StatusGoogle.bundle/
+BUNDLE_NAME = StatusGoogle
+StatusGoogle_FILES = StatusGoogleController.m
+StatusGoogle_INSTALL_PATH = /Library/WeeLoader/Plugins
 StatusGoogle_FRAMEWORKS = UIKit CoreGraphics
 
-include $(THEOS_MAKE_PATH)/tweak.mk
+include $(THEOS_MAKE_PATH)/bundle.mk
 
-after-stage::
-	$(ECHO_NOTHING)cp -r Resources/* $(THEOS_STAGING_DIR)/System/Library/WeeAppPlugins/StatusGoogle.bundle/$(ECHO_END)
-	$(ECHO_NOTHING)mv $(THEOS_STAGING_DIR)/System/Library/WeeAppPlugins/StatusGoogle.bundle/StatusGoogle.dylib $(THEOS_STAGING_DIR)/System/Library/WeeAppPlugins/StatusGoogle.bundle/StatusGoogle$(ECHO_END)
-
+after-install::
+	install.exec "killall -9 SpringBoard"

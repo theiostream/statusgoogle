@@ -1,6 +1,6 @@
 Package: am.theiostre.statusgoogle
 Name: StatusGoogle
-Depends: firmware (>= 5.0)
+Depends: firmware (>= 5.0), com.chpwn.weeloader
 Version: 0.0.1
 Architecture: iphoneos-arm
 Description: An awesome widget for the notification center!

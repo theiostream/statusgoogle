@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>AppBundleID</key>
-	<string>com.apple.stocks</string>
+	<string>am.theiostre.statusgoogle</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
